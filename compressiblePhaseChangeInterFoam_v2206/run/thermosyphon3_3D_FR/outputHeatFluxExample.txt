@@ -1,0 +1,17 @@
+    min/max/integ(evaporator) = 4966.3512, 4966.3512, 4.102206091200004
+    min/max/integ(condenser) = -0.0008162951573173509, 9.839966804195963e-05, -3.229944795510499e-07
+wallHeatFlux wallHeatFlux1 write:
+    writing field wallHeatFlux
+Courant Number mean: 0.0006097403196915488 max: 0.1326937896157676
+Interface Courant Number mean: 6.025501431179917e-05 max: 0.09790961648549645
+Time = 0.2005
+
+PIMPLE: iteration 1
+surfaceFieldValue averageTAdiabatic write:
+    areaAverage(adiabatic) of T = 281.3521909762142
+
+surfaceFieldValue averageTCondenser write:
+    areaAverage(condenser) of T = 281.3500007254771
+
+surfaceFieldValue averageTEvaporator write:
+    areaAverage(evaporator) of T = 281.641870102266

@@ -1,0 +1,15 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+(cd fluid && ./Allrun.pre)
+(cd solid && runApplication blockMesh)
+(cd solid && transformPoints -scale "(0.5 0.0035 0.0035)")
+(cd solid && transformPoints -rollPitchYaw "(0 -90 0)")
+(cd solid && runApplication topoSet)
+(cd solid && runApplication createPatch -overwrite)
+
+# (cd solid && runApplication snappyHexMesh -overwrite)
+(cd solid && touch z.foam)
+(cd fluid && touch z.foam)

@@ -1,0 +1,77 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2206                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+averageTAdiabatic
+{
+    type            surfaceFieldValue;
+    libs            (libfieldFunctionObjects.so);
+
+    log             true;
+//    writeControl    writeTime;
+    writeControl    adjustableRunTime;
+    writeInterval   0.1;
+    writeFields     false;
+
+    regionType      patch;
+    name            adiabatic;
+
+    operation       areaAverage;
+    surfaceFormat   off;
+
+    fields
+    (
+        T
+    );
+}
+
+averageTCondenser
+{
+    type            surfaceFieldValue;
+    libs            (libfieldFunctionObjects.so);
+
+    log             true;
+//    writeControl    writeTime;
+    writeControl    adjustableRunTime;
+    writeInterval   0.1;
+    writeFields     false;
+
+    regionType      patch;
+    name            condenser;
+
+    operation       areaAverage;
+    surfaceFormat   off;
+
+    fields
+    (
+        T
+    );
+}
+
+averageTEvaporator
+{
+    type            surfaceFieldValue;
+    libs            (libfieldFunctionObjects.so);
+
+    log             true;
+//    writeControl    writeTime;
+    writeControl    adjustableRunTime;
+    writeInterval   0.1;
+    writeFields     false;
+
+    regionType      patch;
+    name            evaporator;
+
+    operation       areaAverage;
+    surfaceFormat   off;
+
+    fields
+    (
+        T
+    );
+}
+

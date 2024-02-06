@@ -1,0 +1,16 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+runApplication blockMesh
+
+transformPoints -scale "(0.5 0.0035 0.0035)"
+
+transformPoints -rollPitchYaw "(0 -90 0)"
+
+restore0Dir
+
+runApplication setFields
+
+#------------------------------------------------------------------------------

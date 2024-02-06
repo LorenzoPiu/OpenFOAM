@@ -1,0 +1,152 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  3.0.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      blockMeshDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+//========================
+// CONTROLS
+rInt            1;
+rExt            1.2857;                     // =0.45/0.35.   (1.2857*0.35=0.45
+arcInt          0.707106781186547;
+arcExt          0.909127188571544;            //$rExt*0.707106781186547;
+
+
+// number of cells
+Nx   500;
+NRadial   4;
+NTheta    8;
+
+// size ratio of cell at the wall to the free-stream one in the near-wall blocks
+expRatWall    3; // for BL
+expRatWall2   1; // pipe-axis direction
+
+//========================
+
+convertToMeters 1;
+
+// all the vertices are in non-dimensional units
+// pipe assumed to have length and radius of 1
+vertices
+(
+    (0.00000e+00 $rInt        0.00000e+00)
+    (0.00000e+00 $rExt        0.00000e+00)
+    (0.00000e+00 0.00000e+00  $rExt      )
+    (0.00000e+00 0.00000e+00  $rInt      )
+    
+    (1.00000e+00 $rInt        0.00000e+00)
+    (1.00000e+00 $rExt        0.00000e+00)
+    (1.00000e+00 0.00000e+00  $rExt      )
+    (1.00000e+00 0.00000e+00  $rInt      )
+);
+
+blocks
+(
+    hex (0 1 2 3 4 5 6 7) ($NRadial $NTheta $Nx) simpleGrading ($expRatWall  $expRatWall2 1)
+    
+);
+
+edges
+(
+	line 0 1 
+	line 2 3 
+	line 4 5 
+	line 6 7
+
+	arc 1 2 (0 $arcExt $arcExt)
+	arc 0 3 (0 $arcInt $arcInt)
+	
+	arc 5 6 (1 $arcExt $arcExt)
+	arc 4 7 (1 $arcInt $arcInt)
+);
+
+boundary
+(
+    contour
+    {
+        type wall;
+        faces
+        (
+            (1 5 6 2)
+        );
+    }
+    
+    internalSolidWalls
+    {
+        type mappedWall;
+
+        // What to sample:
+        sampleMode      nearestPatchFace;
+
+        // Simulation world to sample
+        sampleWorld     fluid;
+
+        // Region to sample
+        sampleRegion    region0;
+
+        // If sampleMode is nearestPatchFace : patch to find faces of
+        samplePatch     internalFluidWalls;
+
+        // Use database to get data from (one-way or loose coupling in
+        // combination with functionObject)
+        sampleDatabase    true;
+        
+        faces
+        (
+            (0 4 7 3)
+        );
+    }
+    
+    top
+    {
+        type wall;
+        faces
+        (
+            (4 5 6 7)
+        );
+    }
+    
+    bottom
+    {
+        type wall;
+        faces
+        (
+            (0 1 2 3)
+        );
+    }
+    
+    symmetryVer
+    {
+        type symmetryPlane;
+        faces
+        (
+            (0 1 5 4)
+        );
+    }
+    
+    symmetryHor
+    {
+        type symmetryPlane;
+        faces
+        (
+            (2 3 7 6)
+        );
+    }
+    
+);
+
+mergePatchPairs
+(
+);
+
+// ************************************************************************* //

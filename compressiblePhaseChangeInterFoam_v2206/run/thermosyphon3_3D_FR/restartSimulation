@@ -1,0 +1,16 @@
+#!/bin/sh
+cd "${0%/*}" || exit                                # Run from this directory
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions        # Tutorial run functions
+#------------------------------------------------------------------------------
+
+# mpirun -app ./mpirun.schema_parallel
+# The problem is keeping the log files separate so use the openmpi
+# mpirun option to keep the separate outputs in the logs/ directory
+
+mpirun \
+    --output-filename logs \
+    -np 8 compressiblePhaseChangeInterFoam -case fluid -world fluid -parallel : \
+    -np 2 solidFoam -case solid -world solid -parallel \
+    >> log.compressiblePhaseChangeInterFoam_solidFoam
+
+#------------------------------------------------------------------------------

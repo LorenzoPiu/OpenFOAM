@@ -1,0 +1,18 @@
+blockMesh
+
+transformPoints -scale "(0.5 0.0035 0.0035)"
+
+# commands for 360° mesh
+# sed -i "s/normalVector.*;/normalVector (0 0 1);/g" system/mirrorMeshDict
+# mirrorMesh -overwrite
+# sed -i "s/normalVector.*;/normalVector (0 1 0);/g" system/mirrorMeshDict
+# mirrorMesh -overwrite
+
+# if direction of flow is : z+
+transformPoints -rollPitchYaw "(0 -90 0)" # z+
+#transformPoints -rollPitchYaw "(0 90 0)" # z-
+
+# transformPoints -translate "(0 0 -0.0553)"
+
+# renumber to optimise parallel running
+renumberMesh -overwrite
