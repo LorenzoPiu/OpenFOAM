@@ -1,0 +1,97 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2206                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(
+    {
+        name    evaporator;
+        type    faceSet;
+        action  new;
+        source  patchToFace;
+        sourceInfo
+        {
+            type    patch
+            patch "contour"; // Edit box bounds as required
+            name    "contour";
+        }
+    }
+    
+    {
+        name    evaporator;
+        type    faceSet;
+        action  subset;
+        source  boxToFace;
+        sourceInfo
+        {
+            name    evaporator;
+            //box (0 0 0) (1 1 1);
+            box (-1 -1 -1) (1 0.02 1);
+            //box (0 0 -0.001) (0.15 0.160 0.002); // Edit box bounds as required
+        }
+    }
+    
+    {
+        name    adiabatic;
+        type    faceSet;
+        action  new;
+        source  patchToFace;
+        sourceInfo
+        {
+            name "contour";
+            patch "contour"; // Edit box bounds as required
+        }
+    }
+    
+    {
+        name    adiabatic;
+        type    faceSet;
+        action  subset;
+        source  boxToFace;
+        sourceInfo
+        {
+            //box (0 0 0) (1 1 1);
+            box (-1 0.02 -1) (1 0.03 1);
+            //box (0 0 -0.001) (0.15 0.160 0.002); // Edit box bounds as required
+        }
+    }
+    
+    {
+        name    condenser;
+        type    faceSet;
+        action  new;
+        source  patchToFace;
+        sourceInfo
+        {
+            name  "contour";
+            patch "contour"; // Edit box bounds as required
+        }
+    }
+    
+    {
+        name    condenser;
+        type    faceSet;
+        action  subset;
+        source  boxToFace;
+        sourceInfo
+        {
+            //box (0 0 0) (1 1 1);
+            box (-1 0.03 -1) (1 0.06 1);
+            //box (0 0 -0.001) (0.15 0.160 0.002); // Edit box bounds as required
+        }
+    }
+);
+
+// ************************************************************************* //

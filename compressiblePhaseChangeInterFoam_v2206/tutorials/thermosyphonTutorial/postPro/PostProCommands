@@ -1,0 +1,11 @@
+grep "areaAverage(evaporator) of T" log.compressiblePhaseChangeInterFoam_solidFoam > TavgEvaporator.txt
+
+grep "areaAverage(adiabatic) of T" log.compressiblePhaseChangeInterFoam_solidFoam > TavgAdiabatic.txt
+
+grep "areaAverage(condenser) of T" log.compressiblePhaseChangeInterFoam_solidFoam > TavgCondenser.txt
+
+grep "min/max/integ(condenser)" log.compressiblePhaseChangeInterFoam_solidFoam > heatFluxCondenser.txt
+
+grep "average(region0) of mEvaporation = "  log.compressiblePhaseChangeInterFoam_solidFoam > volAvgMEvaporation.txt
+
+grep "average(region0) of mCondensation = "  log.compressiblePhaseChangeInterFoam_solidFoam > volAvgMCondensation.txt

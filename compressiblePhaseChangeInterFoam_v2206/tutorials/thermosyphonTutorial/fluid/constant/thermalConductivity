@@ -1,0 +1,27 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     | Website:  https://openfoam.org
+    \\  /    A nd           | Version:  9
+     \\/     M anipulation  |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      thermalConductivity;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+// k1 and k2 are not the thermal conductivities, but the thermal conductivities
+// multiplied by Cp. Wait maybe it is k/Cp and not k*Cp
+// See https://www.cfd-online.com/Forums/openfoam-pre-processing/154939-alphaeff.html
+// k/Cp // k*Cp //k
+
+k1          0.48099; //1.0150e-04; //2.2794e+03; //0.48099;   
+
+k2          0.026827; //8.8116e-06; //81.68; //0.026827;
+ 
+// ************************************************************************* //
